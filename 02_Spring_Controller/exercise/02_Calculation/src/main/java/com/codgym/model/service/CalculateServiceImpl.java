@@ -1,6 +1,6 @@
 package com.codgym.model.service;
 
-import org.springframework.context.annotation.Primary;
+import com.codgym.exception.CalculateException;
 import org.springframework.stereotype.Service;
 
 @Service
