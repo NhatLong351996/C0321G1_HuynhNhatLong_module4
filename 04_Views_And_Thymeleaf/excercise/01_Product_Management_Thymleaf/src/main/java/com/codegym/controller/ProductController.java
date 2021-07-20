@@ -63,10 +63,10 @@ public String update(RedirectAttributes attributes,Product product){
     return "findbyname";
 }
 @PostMapping("/find")
-    public String viewFindByName(@RequestParam String name,Model model,RedirectAttributes attributes){
+    public String viewFindByName(@RequestParam String name,Model model){
     List<Product> products = productService.findByName(name);
     if (products.isEmpty()){
-        attributes.addFlashAttribute("message","Not found!");
+        model.addAttribute("message","Not found!");
         return "findbyname";
     }
     model.addAttribute("products",products);
