@@ -1,8 +1,10 @@
 package com.codegym.controller;
 
 import com.codegym.model.bean.Product;
-import com.codegym.model.service.IProductService;
+import com.codegym.model.repository.ProductRepository;
+import com.codegym.model.repository.ProductRepositoryImpl;
 import com.codegym.model.service.ProductService;
+import com.codegym.model.service.ProductServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-    IProductService productService = new ProductService();
+    ProductService productService = new ProductServiceImpl();
 @GetMapping("")
     public String index(Model model){
     model.addAttribute("products",productService.findAll());
