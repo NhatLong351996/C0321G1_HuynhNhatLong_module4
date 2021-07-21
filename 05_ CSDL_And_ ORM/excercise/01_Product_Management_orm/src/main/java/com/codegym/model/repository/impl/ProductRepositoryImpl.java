@@ -6,6 +6,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -35,19 +36,13 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void update(int id, Product product) {
-       /* Cách này e thử nhưng ko dc, */
-        /*EntityTransaction transaction = BaseRepository.entityManager.getTransaction();
+        EntityTransaction transaction = BaseRepository.entityManager.getTransaction();
         transaction.begin();
-        TypedQuery<Product> typedQuery = BaseRepository.entityManager.createQuery("update product set " +
-                "product .name=?1,product .describeProduct=?2,product .price=?3,product .producer=?4 where product .id=?5", Product.class);
-        typedQuery.setParameter(1, product.getName());
-        typedQuery.setParameter(2, product.getDescribeProduct());
-        typedQuery.setParameter(3, product.getPrice());
-        typedQuery.setParameter(4, product.getProducer());
-        typedQuery.setParameter(5, id);
-        transaction.commit();*/
+        BaseRepository.entityManager.merge(product);
+        transaction.commit();
 
-        Session session = null;
+       //Cách 2:
+       /* Session session = null;
         Transaction transaction = null;
         try {
             session = BaseRepository.sessionFactory.openSession();
@@ -68,20 +63,18 @@ public class ProductRepositoryImpl implements ProductRepository {
             if (session != null) {
                 session.close();
             }
-        }
+        }*/
     }
 
     @Override
     public void remove(int id) {
-        //Cách này e thử nhưng ko dc//
-      /*  EntityTransaction transaction = BaseRepository.entityManager.getTransaction();
+        EntityTransaction transaction = BaseRepository.entityManager.getTransaction();
         transaction.begin();
-        TypedQuery query = BaseRepository.entityManager.createQuery("delete from product  " +
-                "where product.id=?1", Product.class);
-        query.setParameter(1, id);
-        transaction.commit();*/
+        BaseRepository.entityManager.remove(findById(id));
+        transaction.commit();
 
-        Session session = null;
+        //Cách 2:
+        /*Session session = null;
         Transaction transaction = null;
         try {
             session = BaseRepository.sessionFactory.openSession();
@@ -97,7 +90,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             if (session != null) {
                 session.close();
             }
-        }
+        }*/
     }
 
 
