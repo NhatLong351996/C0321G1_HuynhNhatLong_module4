@@ -36,9 +36,9 @@ public class ProductRepositoryImpl implements ProductRepository {
         EntityTransaction transaction = BaseRepository.entityManager.getTransaction();
         transaction.begin();
         TypedQuery<Product> typedQuery = BaseRepository.entityManager.createQuery("update product s set " +
-                "s.name=?1,s.describe=?2,s.price=?3,s.producer=?4 where s.id=?5", Product.class);
+                "s.name=?1,s.describeProduct=?2,s.price=?3,s.producer=?4 where s.id=?5", Product.class);
         typedQuery.setParameter(1, product.getName());
-        typedQuery.setParameter(2, product.getDescribe());
+        typedQuery.setParameter(2, product.getDescribeProduct());
         typedQuery.setParameter(3, product.getPrice());
         typedQuery.setParameter(4, product.getProducer());
         typedQuery.setParameter(5, id);
