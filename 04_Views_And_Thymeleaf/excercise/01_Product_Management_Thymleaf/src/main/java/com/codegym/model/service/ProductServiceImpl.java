@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository = new ProductRepositoryImpl();
+
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -15,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void save(Product product) {
-productRepository.save(product);
+        productRepository.save(product);
     }
 
     @Override
@@ -25,12 +26,12 @@ productRepository.save(product);
 
     @Override
     public void update(int id, Product product) {
-productRepository.update(id,product);
+        productRepository.update(id, product);
     }
 
     @Override
     public void remove(int id) {
-productRepository.remove(id);
+        productRepository.remove(id);
     }
 
     @Override
