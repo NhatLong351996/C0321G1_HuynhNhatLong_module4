@@ -42,4 +42,11 @@ public class BlogServiceImpl implements BlogServicce {
     public Page<Blog> findAllByOrderByDatePublicationDesc(Pageable pageable) {
         return blogRepository.findAllByOrderByDatePublicationDesc(pageable);
     }
+
+    @Override
+    public Page<Blog> findAllByNameContaining(String name, Pageable pageable) {
+        return blogRepository.findAllByNameContaining(name,pageable);
+    }
+
+
 }

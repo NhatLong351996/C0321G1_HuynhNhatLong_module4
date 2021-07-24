@@ -17,4 +17,5 @@ public interface BlogServicce {
 
     Page<Blog> findAllByCategoryOrderByDatePublicationDesc(Category category,Pageable pageable);
     Page<Blog> findAllByOrderByDatePublicationDesc(Pageable pageable);
+    Page<Blog> findAllByNameContaining(String name,Pageable pageable);
 }

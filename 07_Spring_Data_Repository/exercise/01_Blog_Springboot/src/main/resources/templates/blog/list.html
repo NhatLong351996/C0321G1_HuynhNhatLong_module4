@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<br>
 <a href="/create-blog">Create new blog</a>
+</br>
+<a href="/list-blog">List Blog</a>
 <h1>Blogs</h1>
 <form>
     Search by name-blog or category:
     <input name="search" type="text"/>
     <input type="submit" value="Search"/>
+</form>
+</br>
+<form>
+    <select name="category">
+        <option th:each="c:${categorys}" th:text="${c.category}" th:value="${c.category}"></option>
+    </select>
+    <input type="submit" value="Search-Category"/>
 </form>
 <br/>
 <table border="1">

@@ -28,16 +28,22 @@ public class BlogController {
 
 
     @GetMapping("/list-blog")
-    public ModelAndView getList(@PageableDefault(value = 2) Pageable pageable, @RequestParam Optional<String> search) {
-        if (search.isPresent()) {
-            Optional<Category> category = categoryService.findAllByCategory(search.get());
-            return new ModelAndView("/blog/list", "blogList",
-                    blogServicce.findAllByCategoryOrderByDatePublicationDesc(category.get(), pageable));
+    public ModelAndView getList(@PageableDefault(value = 2) Pageable pageable,
+                                @RequestParam Optional<String> category,
+                                @RequestParam Optional<String> search) {
+        Page<Blog> blogs;
+        if (category.isPresent()) {
+            Optional<Category> categoryOptional = categoryService.findAllByCategory(category.get());
+            blogs = blogServicce.findAllByCategoryOrderByDatePublicationDesc
+                    (categoryOptional.get(), pageable);
+        } else if (search.isPresent()) {
+            blogs = blogServicce.findAllByNameContaining(search.get(),pageable);
+        } else {
+            blogs = blogServicce.findAllByOrderByDatePublicationDesc(pageable);
         }
-        return new ModelAndView("/blog/list", "blogList",
-                blogServicce.findAllByOrderByDatePublicationDesc(pageable));
-        
+        return new ModelAndView("/blog/list", "blogList", blogs);
     }
+
 
     @GetMapping("/create-blog")
     public ModelAndView getFormCreate() {

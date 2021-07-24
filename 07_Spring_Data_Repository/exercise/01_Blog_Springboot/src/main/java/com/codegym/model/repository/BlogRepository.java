@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface BlogRepository extends JpaRepository<Blog,Long> {
     Page<Blog> findAllByCategoryOrderByDatePublicationDesc(Category category,Pageable pageable);
     Page<Blog> findAllByOrderByDatePublicationDesc(Pageable pageable);
+    Page<Blog> findAllByNameContaining(String name,Pageable pageable);
 }
