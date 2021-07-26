@@ -32,16 +32,20 @@ public class BlogController {
                                 @RequestParam Optional<String> category,
                                 @RequestParam Optional<String> search) {
         Page<Blog> blogs;
+        ModelAndView modelAndView = new ModelAndView("/blog/list");
         if (category.isPresent()) {
             Optional<Category> categoryOptional = categoryService.findAllByCategory(category.get());
             blogs = blogServicce.findAllByCategoryOrderByDatePublicationDesc
                     (categoryOptional.get(), pageable);
+            modelAndView.addObject("search", category);
         } else if (search.isPresent()) {
-            blogs = blogServicce.findAllByNameContaining(search.get(),pageable);
+            blogs = blogServicce.findAllByNameContaining(search.get(), pageable);
+            modelAndView.addObject("search", search);
         } else {
             blogs = blogServicce.findAllByOrderByDatePublicationDesc(pageable);
         }
-        return new ModelAndView("/blog/list", "blogList", blogs);
+        modelAndView.addObject("blogList", blogs);
+        return modelAndView;
     }
 
 

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head>
+<body>
+<h1>View category</h1>
+<p>
+    <a href="/list-category">Category list</a>
+</p>
+    <table>
+        <tr>
+            <td>Name Category:</td>
+            <td th:text="${categoryOld.category}"></td>
+        </tr>
+    </table>
+</body>
+</html>
