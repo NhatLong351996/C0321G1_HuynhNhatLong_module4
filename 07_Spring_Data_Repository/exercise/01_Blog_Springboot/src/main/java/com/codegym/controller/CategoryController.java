@@ -1,8 +1,11 @@
 package com.codegym.controller;
 
+import com.codegym.model.bean.Blog;
 import com.codegym.model.bean.Category;
+import com.codegym.model.service.BlogServicce;
 import com.codegym.model.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,8 @@ import java.util.Optional;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private BlogServicce blogServicce;
 
     @GetMapping("/list-category")
     public ModelAndView getListCategory(@PageableDefault(value = 2) Pageable pageable) {
@@ -61,8 +66,14 @@ public class CategoryController {
         return "redirect:/list-category";
     }
     @GetMapping("/view-category/{id}")
-    public ModelAndView getFormView(@PathVariable Long id){
-        return new ModelAndView("/category/view","categoryOld",categoryService.findById(id).get());
+    public ModelAndView getFormView(@PathVariable("id") Long id,
+                                    @PageableDefault(value = 2) Pageable pageable){
+        Page<Blog> blogs = blogServicce.findAllByCategory_Id(id,pageable);
+       Optional<Category> category = categoryService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("/blog/list");
+        modelAndView.addObject("blogList",blogs);
+        modelAndView.addObject("category",category.get().getCategory());
+        return modelAndView;
     }
 
 }

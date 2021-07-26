@@ -48,5 +48,10 @@ public class BlogServiceImpl implements BlogServicce {
         return blogRepository.findAllByNameContaining(name,pageable);
     }
 
+    @Override
+    public Page<Blog> findAllByCategory_Id(Long id, Pageable pageable) {
+        return blogRepository.findAllByCategory_Id(id,pageable);
+    }
+
 
 }
