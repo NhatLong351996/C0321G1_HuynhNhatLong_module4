@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Information</title>
+</head>
+<body>
+<form action="/list-book">
+    <fieldset>
+        <legend>Book Information</legend>
+        <input type="hidden" name="id" th:value="${book.id}">
+        <table>
+            <tr>
+                <td>Id</td>
+                <td th:text="${book.id}"></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" name="name" th:value="${book.nameBook}">
+                </td>
+            </tr>
+            <tr>
+                <td>NumBer</td>
+                <td>
+                    <input type="text" name="number" th:value="${book.numberBook}">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Borrow">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
+<a href="/list-book">Back to list</a>.
+</body>
+</html>
