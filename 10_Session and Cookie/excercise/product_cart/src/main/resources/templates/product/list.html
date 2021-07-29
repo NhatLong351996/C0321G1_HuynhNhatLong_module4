@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>Title</title>
+</head>
+<body>
+<div class="alert alert-warning" role="alert" th:if="${success}">
+    <strong th:text="${success}"></strong>
+</div>
+<div class="container">
+    <a class="btn btn-warning" th:href="@{/cart}" role="button">My cart</a>
+</div>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product:${productList}">
+                <td th:text="${product.name}"></td>
+                <td>
+                    <a th:href="@{/shop/detail/__${product.id}__}">
+                        <img th:src="${product.image}" style="width: 70px;height: auto">
+                    </a>
+                </td>
+                <td th:text="${product.price}"></td>
+                <td>
+                <a class="btn btn-primary" th:href="@{/shop/add/__${product.id}__}" role="button">Add to cart</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

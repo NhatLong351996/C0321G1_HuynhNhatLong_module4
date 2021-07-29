@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-success" role="alert">
+        <strong th:text="${message}"></strong>
+    </div>
+
+    <a th:if="${cart!=null && cart.getProductDtoIntegerMap().size()>0}"
+       class="btn btn-primary" th:href="@{/shop}" role="button">Back To Shop</a>
+
+    <div class="row">
+        <table class="table" th:if="${cart!=null && cart.getProductDtoIntegerMap().size()>0}">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quality</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="productMap:${cart.productDtoIntegerMap}">
+                <td th:text="${productMap.key.name}"></td>
+                <td>
+                    <a th:href="@{/shop/detail/__${productMap.key.id}__}">
+                        <img th:src="${productMap.key.image}" style="width: 70px;height: auto">
+                    </a>
+                </td>
+                <td th:text="${productMap.key.price}"></td>
+                <td th:text="${productMap.value}"></td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{/cart/delete/__${productMap.key.id}__}"
+                       role="button">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container">
+        <div class="alert alert-info text-center" role="alert" th:if="${cart==null
+        || cart.getProductDtoIntegerMap().size()==0}">
+            <strong>No have product!,
+                <a class="btn btn-primary" th:href="@{/shop}" role="button">Click here to shopping</a>
+            </strong>
+        </div>
+        </div>
+    </div>
+    <div class="text-center" th:if="${cart!=null && cart.getProductDtoIntegerMap().size()>0}">
+       Total Money: <strong th:text="${cart.countTotal()}"></strong> VND
+    </div>
+</div>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>
