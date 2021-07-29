@@ -23,7 +23,7 @@ public class BookController {
 
     @GetMapping("/list-book")
     public ModelAndView getList(@PageableDefault(value = 5) Pageable pageable,
-                                @RequestParam Optional<String> s,
+                                @RequestParam Optional<String> search,
                                 @RequestParam Optional<Long> id,
                                 @RequestParam Optional<Long> idReturn) throws NumberBookException {
         Page<Book> books;
@@ -38,8 +38,8 @@ public class BookController {
                 iBookService.save(book.get());
                 books = iBookService.findAll(pageable);
             }
-        } else if (s.isPresent()) {
-            books = iBookService.findAllByNameBookContaining(s.get(), pageable);
+        } else if (search.isPresent()) {
+            books = iBookService.findAllByNameBookContaining(search.get(), pageable);
         } else if (id.isPresent()) {
             Optional<Book> book = iBookService.findById(id.get());
             Integer num = book.get().getNumberBook();
@@ -52,7 +52,7 @@ public class BookController {
         } else {
             books = iBookService.findAll(pageable);
         }
-        modelAndView.addObject("key", s.orElse(null));
+        modelAndView.addObject("key", search.orElse(null));
         modelAndView.addObject("books", books);
         return modelAndView;
     }
@@ -69,7 +69,7 @@ public class BookController {
     }
 
     @ExceptionHandler(NumberBookException.class)
-    public String getErrorPage() {
+    public String ErrorPage() {
         return "error";
     }
 

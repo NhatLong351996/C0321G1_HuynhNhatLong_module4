@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Logger {
     int numberPeole=0;
-    @Pointcut(" execution(* com.codegym.controller.BookController.getList(..))")
+    @Pointcut(" execution(* com.codegym.controller.BookController.get*(..))")
     public void signIn(){}
     @Before("signIn()")
     public void beforeSingIn(){
