@@ -32,7 +32,7 @@ public class CartController {
         ProductDto productDto = new ProductDto();
         BeanUtils.copyProperties(productOptional.get(), productDto);
         cart.delete(productDto);
-        redirectAttributes.addFlashAttribute("message","Delete"+ productDto.getName()+" success!");
+        redirectAttributes.addFlashAttribute("message", "Delete" + productDto.getName() + " success!");
         return new ModelAndView("redirect:/cart");
     }
 }

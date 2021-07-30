@@ -17,37 +17,39 @@ import java.util.Optional;
 @SessionAttributes("cart")
 @RequestMapping("/shop")
 public class ProductController {
-@ModelAttribute("cart")
-public CartDto initCart(){
-    return new CartDto();
-}
+    @ModelAttribute("cart")
+    public CartDto initCart() {
+        return new CartDto();
+    }
+
     @Autowired
     ProductService productService;
 
     @GetMapping
-    public ModelAndView showListPage(){
-        return new ModelAndView("product/list","productList",productService.findAll());
+    public ModelAndView showListPage() {
+        return new ModelAndView("product/list", "productList", productService.findAll());
     }
 
     @GetMapping("add/{id}")
     public ModelAndView addToCart(@PathVariable Long id,
                                   @SessionAttribute CartDto cart,
-                                  RedirectAttributes redirectAttributes){
-       Optional<Product> productEntity = productService.findById(id);
-       if (!productEntity.isPresent()){
-           return new ModelAndView("error");
-       }
+                                  RedirectAttributes redirectAttributes) {
+        Optional<Product> productEntity = productService.findById(id);
+        if (!productEntity.isPresent()) {
+            return new ModelAndView("error");
+        }
         ProductDto productDto = new ProductDto();
-        BeanUtils.copyProperties(productEntity.get(),productDto);
+        BeanUtils.copyProperties(productEntity.get(), productDto);
         cart.addProductDtoIntoSession(productDto);
         redirectAttributes.addFlashAttribute("success", "Add "
-                +cart.getProductDtoIntegerMap().get(productDto)+" product name: "
-                +productDto.getName()+" Thank you!");
+                + cart.getProductDtoIntegerMap().get(productDto) + " product name: "
+                + productDto.getName() + " Thank you!");
         return new ModelAndView("redirect:/shop");
     }
+
     @GetMapping("/detail/{id}")
-    public ModelAndView showViewProduct(@PathVariable Long id){
-return new ModelAndView("product/detail","product",productService.findById(id).get());
+    public ModelAndView showViewProduct(@PathVariable Long id) {
+        return new ModelAndView("product/detail", "product", productService.findById(id).get());
     }
 
 }

@@ -30,9 +30,9 @@ public class CartDto {
     }
 
     public int countTotal() {
-        int payment=0;
-        for (Map.Entry<ProductDto,Integer> entry : productDtoIntegerMap.entrySet()){
-            payment += entry.getKey().getPrice()*entry.getValue();
+        int payment = 0;
+        for (Map.Entry<ProductDto, Integer> entry : productDtoIntegerMap.entrySet()) {
+            payment += entry.getKey().getPrice() * entry.getValue();
         }
         return payment;
     }
