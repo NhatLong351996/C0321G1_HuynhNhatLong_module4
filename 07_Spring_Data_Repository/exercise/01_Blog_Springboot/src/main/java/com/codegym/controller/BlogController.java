@@ -37,13 +37,13 @@ public class BlogController {
             Optional<Category> categoryOptional = categoryService.findAllByCategory(category.get());
             blogs = blogServicce.findAllByCategoryOrderByDatePublicationDesc
                     (categoryOptional.get(), pageable);
-            modelAndView.addObject("category", category.get());
         } else if (search.isPresent()) {
             blogs = blogServicce.findAllByNameContaining(search.get(), pageable);
-            modelAndView.addObject("search", search.get());
         } else {
             blogs = blogServicce.findAllByOrderByDatePublicationDesc(pageable);
         }
+        modelAndView.addObject("search", search.orElse(null));
+        modelAndView.addObject("category", category.orElse(null));
         modelAndView.addObject("blogList", blogs);
         return modelAndView;
     }

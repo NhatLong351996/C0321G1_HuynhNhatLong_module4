@@ -5,10 +5,10 @@
     <title>Book Information</title>
 </head>
 <body>
-<form action="/list-book">
+<form action="/view" method="post">
     <fieldset>
         <legend>Book Information</legend>
-        <input type="hidden" name="id" th:value="${book.id}">
+        <input type="hidden" name="idBorrow" th:value="${book.id}">
         <table>
             <tr>
                 <td>Id</td>
