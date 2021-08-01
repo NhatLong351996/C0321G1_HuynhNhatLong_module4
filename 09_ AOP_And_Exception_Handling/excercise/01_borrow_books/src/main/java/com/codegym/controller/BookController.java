@@ -34,7 +34,7 @@ public class BookController {
                 throw new NumberBookException();
             }else {
                 Integer num = book.get().getNumberBook();
-                book.get().setNumberBook(num - 1);
+                book.get().setNumberBook(num + 1);
                 iBookService.save(book.get());
                 books = iBookService.findAll(pageable);
             }

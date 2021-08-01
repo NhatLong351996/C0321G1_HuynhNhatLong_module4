@@ -44,5 +44,11 @@ public class SmartPhoneRestController {
         smartPhoneService.remove(id);
         return new ResponseEntity<>(smartphoneOptional.get(), HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Iterable<SmartPhone>> updateSmartphone(@RequestBody SmartPhone smartphone) {
+        smartPhoneService.save(smartphone);
+        return new ResponseEntity<>(smartPhoneService.findAll(), HttpStatus.OK);
+    }
 }
 

@@ -7,7 +7,7 @@
     <script type="text/javascript">
 
         function addNewSmartPhone() {
-            //lay du lieu
+            //lay du lieu kiểu Json
             let producer = $('#producer').val();
             let model = $('#model').val();
             let price = $('#price').val();
@@ -47,6 +47,7 @@
                         '        <td>Model</td>\n' +
                         '        <td>Price</td>\n' +
                         '        <td>Delete</td>\n' +
+                        '        <td>Edit</td>\n' +
                         '    </tr>';
                     for (let i = 0; i < data.length; i++) {
                         content += getSmartphone(data[i]);
@@ -58,7 +59,8 @@
 
         function getSmartphone(smartphone) {
             return `<tr><td >${smartphone.producer}</td><td >${smartphone.model}</td><td >${smartphone.price}</td>` +
-                `<td><a class="deleteSmartphone" href="${smartphone.id}">Delete</a></td></tr>`;
+                `<td><a class="deleteSmartphone" href="${smartphone.id}">Delete</a></td>` +
+                `<td><button class="updateSmartphone " th:href="${smartphone.id}">Update</button></td></tr>`;
         }
 
         $(document).ready(function () {
@@ -81,23 +83,54 @@
                 //chặn sự kiện mặc định của thẻ
                 event.preventDefault();
             });
+            $('.updateSmartphone').click(function () {
+                let id = $(this).attr("href");
+                $('#updateTable').toggle();
+                $('#updateInfo').click(function () {
+                    let updateProducer = $('#updateProducer').val();
+                    let updateModel = $('#updateModel').val();
+                    let updatePrice = $('#updatePrice').val();
+                    let newSmartphone = {
+                        id: id,
+                        producer: updateProducer,
+                        model: updateModel,
+                        price: updatePrice
+                    };
+                    $.ajax({
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        type: "PUT",
+                        data: JSON.stringify(newSmartphone),
+                        //tên API
+                        url: `/smartphones/${id}`,
+                        //xử lý khi thành công
+                        success: successHandler
+
+                    });
+                    $('#updateTable').toggle();
+                })
+            })
         })
+
     </script>
 </head>
 <body>
+<!-------------------------------------------------------form-->
 <form id="add-smartphone">
     <table>
         <tr>
             <td>Producer:</td>
-            <td><input type="text" id="producer" placeholder="producer"></td>
+            <td><input type="text" id="producer"></td>
         </tr>
         <tr>
             <td>Model:</td>
-            <td><input type="text" id="model" placeholder="model"></td>
+            <td><input type="text" id="model"></td>
         </tr>
         <tr>
             <td>Price:</td>
-            <td><input type="text" id="price" placeholder="price"></td>
+            <td><input type="text" id="price"></td>
         </tr>
         <tr>
             <td></td>
@@ -105,6 +138,7 @@
         </tr>
     </table>
 </form>
+<!-----------------------------------------------list-->
 <h1>Smartphone List</h1>
 <table id="smartphoneList">
     <tr>
@@ -112,6 +146,7 @@
         <td>Model</td>
         <td>Price</td>
         <td>Delete</td>
+        <td>Edit</td>
     </tr>
     <th:block th:each="smartphone: ${smartphones}">
         <tr>
@@ -119,8 +154,31 @@
             <td th:text="${smartphone.model}"></td>
             <td th:text="${smartphone.price}"></td>
             <td><a class="deleteSmartphone" th:href="${smartphone.getId()}">Delete</a></td>
+            <td>
+                <button class="updateSmartphone" th:href="${smartphone.id}">Update</button>
+            </td>
         </tr>
     </th:block>
 </table>
+
+<table id="updateTable" style="display: none">
+    <tr>
+        <td>Producer:</td>
+        <td><input type="text" id="updateProducer" ></td>
+    </tr>
+    <tr>
+        <td>Model:</td>
+        <td><input type="text" id="updateModel" ></td>
+    </tr>
+    <tr>
+        <td>Price:</td>
+        <td><input type="text" id="updatePrice" ></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value="EDIT" id="updateInfo"></td>
+    </tr>
+</table>
+
 </body>
 </html>
