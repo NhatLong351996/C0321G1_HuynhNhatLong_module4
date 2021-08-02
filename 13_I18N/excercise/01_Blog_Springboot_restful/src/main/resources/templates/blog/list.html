@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{ListSmartphone}"></title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<br>
+<a href="/create-blog" th:text="#{create}"></a>
+</br>
+<a href="/list-blog" th:text="#{ListBlog}"></a>
+<h1 th:text="#{Blogs}"></h1>
+<h3 th:text="#{Language}"></h3><a href="/list-blog?lang=en" th:text="English"></a>|<a href="/list-blog?lang=ja" th:text="日本"></a>
+<p th:text="#{Search}"></p>
+<input id="search" type="text"/>
+</br>
+<form>
+    <select name="category">
+        <option th:each="c:${categorys}" th:text="${c.category}" th:value="${c.category}"></option>
+    </select>
+    <input type="submit" value="Search-Category"/>
+</form>
+<br/>
+<table border="1" id="table">
+    <tr>
+        <th th:text="#{Id}"></th>
+        <th th:text="#{Name}"></th>
+        <th th:text="#{Category}"></th>
+    </tr>
+    <th:block th:each="blog : ${blogList}">
+        <tr>
+            <td th:text="${blog.id}"></td>
+            <td th:text="${blog.name}"></td>
+            <td th:text="${blog.content}"></td>
+        </tr>
+    </th:block>
+</table>
+<button id="loadMore" th:text="#{LoadMore}"></button>
+<script type="text/javascript">
+    let page = 1;
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://localhost:8080/api/blog",
+            type: "GET",
+            success: function (data) {
+                let tr = [];
+                for (let i = 0; i < data.length; i++) {
+                    tr.push('<tr>');
+                    tr.push('<td>' + data.content[i].id + '</td>')
+                    tr.push('<td>' + data.content[i].name + '</td>')
+                    tr.push('<td>' + data.content[i].content + '</td>')
+                    tr.push('</tr>');
+                }
+                $("#table").append($(tr.join('')));
+            }
+        })
+
+
+        $('#loadMore').click(function () {
+            $.ajax({
+                url: "http://localhost:8080/api/blog/loadMore/" + page++,
+                type: "GET",
+                success: function (data) {
+                    let tr = [];
+                    for (let i = 0; i < data.content.length; i++) {
+                        tr.push('<tr>');
+                        tr.push('<td>' + data.content[i].id + '</td>')
+                        tr.push('<td>' + data.content[i].name + '</td>')
+                        tr.push('<td>' + data.content[i].content + '</td>')
+                        tr.push('</tr>');
+                    }
+                    $("#table").append($(tr.join('')));
+                }
+            })
+        })
+
+        $('#search').keyup(function () {
+            let search = $(this).val();
+            $('#table').empty();
+            $.ajax({
+                url: "http://localhost:8080/api/blog/search/" + search,
+                type: "GET",
+                success: function (data) {
+                    let tr = [];
+                    for (let i = 0; i < data.content.length; i++) {
+                        tr.push('<tr>');
+                        tr.push('<td>' + data.content[i].id + '</td>')
+                        tr.push('<td>' + data.content[i].name + '</td>')
+                        tr.push('<td>' + data.content[i].content + '</td>')
+                        tr.push('</tr>');
+                    }
+                    $("#table").append($(tr.join('')));
+                }
+            })
+        })
+    })
+
+</script>
+</body>
+</html>
