@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet " type="text/css" href="/css/style.css">
+    <title>Home</title>
+
+</head>
+<body>
+
+<!--header-->
+<div th:fragment="header" class="container">
+
+
+    <nav class="navbar navbar-light bg-secondary row">
+        <div class="col-7 ">
+            <a class="navbar-brand" href="#">
+                <img src="/image/1.png" alt="" width="50" height="50">
+            </a>
+        </div>
+        <div class="col-3 text-right mr-md-0">
+            <a class="navbar-brand btn btn-light" href="#">
+                HUYNH NHAT LONG
+            </a>
+        </div>
+    </nav>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary row border-danger mt-1 mb-1">
+        <div class="collapse navbar-collapse justify-content-center left" id="navbarSupportedContent ">
+            <ul class="navbar-nav mr-auto ">
+                <li class="nav-item active rightme">
+                    <a class="nav-link text-light" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item rightme">
+                    <a class="nav-link text-light" href="#">Employee</a>
+                </li>
+                <li class="nav-item rightme text-light">
+                    <a class="nav-link text-light" href="/customer">Customer</a>
+                </li>
+                <li class="nav-item rightme text-light">
+                    <a class="nav-link text-light" href="#">Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Contract</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+
+    <!--leftSign and body-->
+
+    <div class="row " >
+        <div class="col-4">
+            <div class="wrapper d-flex height">
+                <div class="sidebar position-absolute w-100 ">
+                    <ul>
+                        <li><a href="#"><i></i>Dashboard</a></li>
+                        <li><a href="#"><i></i>Team</a></li>
+                        <li class="notification1"><a href="#"><i class="fas fa-calendar-week"></i>Calender</a><span
+                                class="number1">4</span></li>
+                        <li class="notification2"><a href="#"><i class="far fa-envelope"></i>Documents</a><span
+                                class="number2">5</span></li>
+                        </li>
+                        <li><a href="#"><i class="fas fa-signal"></i>Reports</a></li>
+                    </ul>
+                    <p class="myproject px-3">PROJECTS</p>
+                    <ul>
+                        <li><a href="#">Website redesign</a></li>
+                        <li><a href="#">GraphQL API</a></li>
+                        <li><a href="#">Customer migration guides</a></li>
+                        <li><a href="#">Profit sharing program</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 bg-light">
+            <div th:insert="~{body::content}"></div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--Script-->
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>
