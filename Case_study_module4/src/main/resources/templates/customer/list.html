@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet " type="text/css" href="css/style.css">
+    <title>List Customer</title>
+</head>
+<body>
+<div th:insert="~{/home/home::header}"></div>
+<div class=" container">
+    <div class="row">
+        <!--<div th:insert="~{/home/home::leftbar}"></div>-->
+        <div class="col-4" style="background-color: #494f54">
+            <div th:replace="~{/home/home::leftbar}"></div>
+        </div>
+        <div class="col-8 bg-light">
+            <!--search-->
+            <form action="/customer">
+                <div class="row">
+                    <input class="form-control col-9 " type="search" placeholder="Search" aria-label="Search"
+                           name="search">
+                    <button class="btn btn-outline-secondary col-3 " type="submit">Search</button>
+                </div>
+                <div th:if="${message}">
+                    <span th:text="${message}" style="color: red;margin: 5px"></span>
+                </div>
+                <a href="/customer/create">
+                    <button type="button" class="btn btn-secondary m-2">Create</button>
+                </a>
+            </form>
+
+
+
+            <!-- body-->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Customer Code</th>
+                    <th class="text-center">Address</th>
+                    <th class="text-center">Card</th>
+                    <th class="text-center">Date Of Birth</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Phone Number</th>
+                    <th class="text-center">Type Customer</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">View</th>
+                    </th>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="customer,status:${customers}">
+                        <tr>
+                            <td></td>
+                            <td th:text="${status.count}"></td>
+                            <td th:text="${customer.nameCustomer}"></td>
+                            <td th:text="${customer.customerCode}"></td>
+                            <td th:text="${customer.addressCustomer}"></td>
+                            <td th:text="${customer.cardCustomer}"></td>
+                            <td th:text="${customer.dateOfBirthCustomer}"></td>
+                            <td th:text="${customer.emailCustomer}"></td>
+                            <td th:text="${customer.phoneNumberCustomer}"></td>
+                            <td th:text="${customer.customerType.typeNameCustomer}"></td>
+                            <td><a th:href="@{/customer/edit/__${customer.idCustomer}__ }">
+                                <button type="button" class="btn btn-secondary">Edit</button>
+                            </a></td>
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#exampleModal"
+                                        th:onclick="|deleteCustomer(${customer.idCustomer})|">
+                                    Delete
+                                </button>
+                            </td>
+                            <td><a th:href="@{/customer/view/__${customer.idCustomer}__ }">
+                                <button type="button" class="btn btn-warning">View</button>
+                            </a></td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+
+                <div>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/customer(page=${customers.number - 1},search=${search})}"
+                       th:if="${customers.hasPrevious()}"> <span style="font-weight: bold"> < </span>
+                    </a>
+                    <span th:each="p : ${#numbers.sequence(0,customers.totalPages -1)}"
+                          th:if="${customers.hasContent()}">
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/customer(page=${p},search=${search})}" th:text="${p +1}"
+                       th:if="${(p >(customers.number)-1)&&(p <(customers.number+2))}"></a>
+                    </span>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/customer(page=${customers.number + 1},search=${search})}"
+                       th:if="${customers.hasNext()}">
+                        <span style="font-weight: bold"> > </span>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- body-->
+        </div>
+    </div>
+<!--model-->
+    <form action="/customer/delete" method="post">
+        <div class="modal" id="exampleModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <input type="hidden" id="id" name="id">
+                    <div class="modal-body">
+                        <p>Do you want to delete</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:insert="~{/home/home::fooder}"></div>
+<script>
+    function deleteCustomer(id) {
+        document.getElementById('id').value = id;
+    }
+</script>
+
+
+<!--Script-->
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>
