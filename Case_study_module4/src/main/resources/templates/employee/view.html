@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet " type="text/css" href="/css/style.css">
+    <title>View Customer</title>
+</head>
+<body>
+<div th:insert="~{/home/home::header}"></div>
+<div class=" container">
+    <div class="row">
+        <!--<div th:insert="~{/home/home::leftbar}"></div>-->
+        <div class="col-4" style="background-color: #494f54">
+            <div th:replace="~{/home/home::leftbar}"></div>
+        </div>
+        <div class="col-8 bg-light">
+
+            <a class="btn btn-outline-secondary" href="/customer" role="button">List Customer</a>
+
+            <div class="alert alert-light text-center " role="alert" th:if="${message}">
+                <strong th:text="${message}" style="color: red"></strong>
+            </div>
+
+            <!-- body-->
+            <div class="form-group">
+                <label class="text-uppercase">Name Employee: </label>
+                <p class="form-control onl" th:text="${employee.nameEmployee}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Education Degree: </label>
+                <p class="form-control" th:text="${employee.educationDegree.nameEducationDegree}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Position</label>
+                <p class="form-control" th:text="${employee.positionEmployee.namePosition}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Division</label>
+                <p class="form-control" th:text="${employee.employeeDivision.nameDivision}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Date Of Birth</label>
+                <p class="form-control" th:text="${employee.dateOfBirth}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Card </label>
+                <p class="form-control" th:text="${employee.card}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Salary </label>
+                <p class="form-control" th:text="${employee.salary}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Phone Number </label>
+                <p class="form-control" th:text="${employee.phoneNumber}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Email </label>
+                <p class="form-control" th:text="${employee.email}">
+            </div>
+            <div class="form-group">
+                <label class="text-uppercase">Address </label>
+                <p class="form-control" th:text="${employee.addressEmployee}">
+            </div>
+            <a class="btn btn-light" href="/employee" role="button">Back to List</a>
+            <!-- body-->
+        </div>
+    </div>
+
+</div>
+
+
+<!--Script-->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

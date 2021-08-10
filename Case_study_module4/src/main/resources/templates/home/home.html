@@ -18,7 +18,7 @@
     <nav class="navbar navbar-light bg-secondary row sticky-top">
         <div class="col-7 ">
             <a class="navbar-brand" href="#">
-                <img src="/image/1.png" alt="" width="50" height="50">
+                <img src="/image/6.png" alt="" width="50" height="50">
             </a>
         </div>
         <div class="col-3 text-right mr-md-0">
@@ -33,26 +33,50 @@
         <div class="collapse navbar-collapse justify-content-center left" id="navbarSupportedContent ">
             <ul class="navbar-nav mr-auto ">
                 <li class="nav-item active rightme">
-                    <a class="nav-link text-light" href="/home">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-light" href="/home">Home</a>
                 </li>
                 <li class="nav-item rightme">
-                    <a class="nav-link text-light" href="#">Employee</a>
+                    <div class="dropdown ">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Employee
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/employee/create">Create New Employee</a>
+                            <a class="dropdown-item" href="/employee">List Employee</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item rightme text-light ">
+                    <div class="dropdown ">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Customer
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/customer/create">Create New Customer</a>
+                            <a class="dropdown-item" href="/customer">List Customer</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item rightme text-light">
-                    <a class="nav-link text-light" href="/customer">Customer</a>
+                    <a class="nav-link text-light" href="/service/create">Service</a>
                 </li>
-                <li class="nav-item rightme text-light">
-                    <a class="nav-link text-light" href="#">Service</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Contract</a>
+                <li class="nav-item ">
+                    <div class="dropdown ">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Contract
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/contract">Create New Contract</a>
+                            <a class="dropdown-item" href="/contractDetail">Create New Contract Detail</a>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
         <div>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
@@ -87,15 +111,15 @@
             </div>
         </div>
 
-        <div class="col-8 bg-light">
+        <div class="col-8 bg-light ">
             <div th:insert="~{home/body::content}"></div>
         </div>
 
     </div>
 </div>
 
-<div th:fragment="fooder" >
-    <footer class="page-footer font-small blue  bg-light fixed-bottom">
+<div th:fragment="fooder">
+    <footer class="page-footer font-small blue bg-secondary fixed-bottom">
         <div class="footer-copyright text-center py-3">© 2021 Copyright:
             <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
         </div>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet " type="text/css" href="/css/style.css">
+    <title>List Employee</title>
+</head>
+<body>
+<div th:insert="~{/home/home::header}"></div>
+<div class=" container">
+    <div class="row">
+        <!--<div th:insert="~{/home/home::leftbar}"></div>-->
+        <div class="col-4" style="background-color: #494f54" >
+            <div th:replace="~{/home/home::leftbar}"></div>
+        </div>
+        <div class="col-8 bg-light">
+
+            <a class="btn btn-outline-secondary" href="/employee" role="button">List Employee</a>
+
+            <div class="alert alert-light " role="alert" th:if="${message}">
+                <strong th:text="${message}" style="color: red ;margin: 5px"></strong>
+            </div>
+
+            <!-- body-->
+            <form th:action="@{/employee/edit}" method="post" th:object="${employeeDto}">
+                <input th:type="hidden" name="id" th:field="*{idEmployee}">
+                <div class="form-group">
+                    <label class="text-uppercase">Name Employee</label>
+                    <input type="text" class="form-control" th:field="*{nameEmployee}">
+                    <div class="form-text" th:if="${#fields.hasErrors('nameEmployee')}"
+                         th:errors="*{nameEmployee}" style="color: red"></div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Education Degree</label>
+                    <select th:field="*{educationDegree}" class="form-control">
+                        <option th:each="type : ${listEdu} " th:text="${type.nameEducationDegree}"
+                                th:value="${type.id}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Position</label>
+                    <select th:field="*{positionEmployee}" class="form-control">
+                        <option th:each="type: ${listPosition} " th:text="${type.namePosition}"
+                                th:value="${type.idPosition}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Division</label>
+                    <select th:field="*{employeeDivision}" class="form-control">
+                        <option th:each="type : ${listDivision} " th:text="${type.nameDivision}"
+                                th:value="${type.id}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Date Of Birth</label>
+                    <input type="date" class="form-control" th:field="*{dateOfBirth}">
+                    <div class="form-text" th:if="${#fields.hasErrors('dateOfBirth')}"
+                         th:errors="*{dateOfBirth}" style="color: red"></div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Card </label>
+                    <input type="text" class="form-control" th:field="*{card}">
+                    <div class="form-text" th:if="${#fields.hasErrors('card')}"
+                         th:errors="*{card}" style="color: red"></div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Salary </label>
+                    <input type="number" class="form-control" th:field="*{salary}">
+                    <div class="form-text" th:if="${#fields.hasErrors('salary')}"
+                         th:errors="*{salary}" style="color: red"></div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Phone Number </label>
+                    <input type="number" class="form-control" th:field="*{phoneNumber}">
+                    <div class="form-text " th:if="${#fields.hasErrors('phoneNumber')}"
+                         th:errors="*{phoneNumber}" style="color: red"></div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Email </label>
+                    <input type="text" class="form-control" th:field="*{email}">
+                    <div class="form-text " style="color: red" th:if="${#fields.hasErrors('email')}"
+                         th:errors="*{email}"></div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Address </label>
+                    <input type="text" class="form-control" th:field="*{addressEmployee}">
+                    <div class="form-text " style="color: red" th:if="${#fields.hasErrors('addressEmployee')}"
+                         th:errors="*{addressEmployee}"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+            <!-- body-->
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!--Script-->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

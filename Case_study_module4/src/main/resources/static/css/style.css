@@ -13,12 +13,12 @@
     margin-right: 10%;
 }
 .left{
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 body {
-    background-image: url("/image/3.png");
+    background-image: url("/image/5.png");
 }
 
 .wrapper {

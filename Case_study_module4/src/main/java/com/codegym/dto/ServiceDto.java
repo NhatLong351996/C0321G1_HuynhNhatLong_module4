@@ -28,6 +28,7 @@ public class ServiceDto {
     private Integer numberOfFloors;
     @Min(value = 0,message = "Please enter a positive number ")
     private Integer maxPeople;
+    @Min(value = 0,message = "Please enter a positive number ")
     private Double costService;
     private ServiceType serviceType;
     private RentTypeService rentTypeService;

@@ -21,8 +21,8 @@
 
             <a class="btn btn-outline-secondary" href="/customer" role="button">List Customer</a>
 
-            <div th:if="${message}">
-                <span th:text="${message}" style="color: red;margin: 5px"></span>
+            <div class="alert alert-light " role="alert" th:if="${message}">
+                <strong th:text="${message}" style="color: red ;margin: 5px"></strong>
             </div>
 
             <!-- body-->

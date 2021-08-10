@@ -19,7 +19,7 @@
         </div>
         <div class="col-8 bg-light">
             <!--search-->
-            <form action="/customer" class="m-3">
+            <form action="/employee" class="m-3">
                 <div class="row">
                     <input class="form-control col-9 " type="search" placeholder="Search" aria-label="Search"
                            name="search">
@@ -28,8 +28,8 @@
                 <div class="alert alert-light " role="alert" th:if="${message}">
                     <strong th:text="${message}" style="color: red ;margin: 5px"></strong>
                 </div>
-                <a href="/customer/create">
-                    <button type="button" class="btn btn-secondary mt-2 ">Create New Customer</button>
+                <a href="/employee/create">
+                    <button type="button" class="btn btn-secondary mt-2 ">Create New Employee</button>
                 </a>
             </form>
 
@@ -42,32 +42,32 @@
                     <th>
                     <th class="text-center">No</th>
                     <th class="text-center">Name</th>
-                    <th class="text-center">Customer Code</th>
-                    <th class="text-center">Type Customer</th>
+                    <th class="text-center">Position</th>
+                    <th class="text-center">Division</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                     <th scope="col">View</th>
                     </th>
                     </thead>
                     <tbody>
-                    <th:block th:each="customer,status:${customers}">
+                    <th:block th:each="employee,status:${employees}">
                         <tr>
                             <td></td>
                             <td th:text="${status.count}"></td>
-                            <td th:text="${customer.nameCustomer}"></td>
-                            <td th:text="${customer.customerCode}"></td>
-                            <td th:text="${customer.customerType.typeNameCustomer}"></td>
-                            <td><a th:href="@{/customer/edit/__${customer.idCustomer}__ }">
+                            <td th:text="${employee.nameEmployee}"></td>
+                            <td th:text="${employee.positionEmployee.namePosition}"></td>
+                            <td th:text="${employee.employeeDivision.nameDivision}"></td>
+                            <td><a th:href="@{/employee/edit/__${employee.idEmployee}__ }">
                                 <button type="button" class="btn btn-secondary">Edit</button>
                             </a></td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#exampleModal"
-                                        th:onclick="|deleteCustomer(${customer.idCustomer})|">
+                                        th:onclick="|deleteEmployee(${employee.idEmployee})|">
                                     Delete
                                 </button>
                             </td>
-                            <td><a th:href="@{/customer/view/__${customer.idCustomer}__ }">
+                            <td><a th:href="@{/employee/view/__${employee.idEmployee}__ }">
                                 <button type="button" class="btn btn-warning">View</button>
                             </a></td>
                         </tr>
@@ -77,18 +77,18 @@
 
                 <div>
                     <a class="btn btn-outline-secondary"
-                       th:href="@{/customer(page=${customers.number - 1},search=${search})}"
-                       th:if="${customers.hasPrevious()}"> <span style="font-weight: bold"> < </span>
+                       th:href="@{/employee(page=${employees.number - 1},search=${search})}"
+                       th:if="${employees.hasPrevious()}"> <span style="font-weight: bold"> < </span>
                     </a>
-                    <span th:each="p : ${#numbers.sequence(0,customers.totalPages -1)}"
-                          th:if="${customers.hasContent()}">
+                    <span th:each="p : ${#numbers.sequence(0,employees.totalPages -1)}"
+                          th:if="${employees.hasContent()}">
                     <a class="btn btn-outline-secondary"
-                       th:href="@{/customer(page=${p},search=${search})}" th:text="${p +1}"
-                       th:if="${(p >(customers.number)-1)&&(p <(customers.number+2))}"></a>
+                       th:href="@{/employee(page=${p},search=${search})}" th:text="${p +1}"
+                       th:if="${(p >(employees.number)-1)&&(p <(employees.number+2))}"></a>
                     </span>
                     <a class="btn btn-outline-secondary"
-                       th:href="@{/customer(page=${customers.number + 1},search=${search})}"
-                       th:if="${customers.hasNext()}">
+                       th:href="@{/employee(page=${employees.number + 1},search=${search})}"
+                       th:if="${employees.hasNext()}">
                         <span style="font-weight: bold"> > </span>
                     </a>
                 </div>
@@ -99,12 +99,12 @@
         </div>
     </div>
 <!--model-->
-    <form action="/customer/delete" method="post">
+    <form action="/employee/delete" method="post">
         <div class="modal" id="exampleModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Delete</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -114,7 +114,7 @@
                         <p>Do you want to delete</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
 
 <div th:insert="~{/home/home::fooder}"></div>
 <script>
-    function deleteCustomer(id) {
+    function deleteEmployee(id) {
         document.getElementById('id').value = id;
     }
 </script>

@@ -1,10 +1,11 @@
+<!--
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Required meta tags -->
+    &lt;!&ndash; Required meta tags &ndash;&gt;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
+    &lt;!&ndash; Bootstrap CSS &ndash;&gt;
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet " type="text/css" href="css/style.css">
     <title>List Customer</title>
@@ -13,50 +14,47 @@
 <div th:insert="~{/home/home::header}"></div>
 <div class=" container">
     <div class="row">
-        <!--<div th:insert="~{/home/home::leftbar}"></div>-->
+        &lt;!&ndash;<div th:insert="~{/home/home::leftbar}"></div>&ndash;&gt;
         <div class="col-4" style="background-color: #494f54">
             <div th:replace="~{/home/home::leftbar}"></div>
         </div>
         <div class="col-8 bg-light">
-            <!--search-->
-            <form action="/customer" class="m-3">
+            &lt;!&ndash;search&ndash;&gt;
+            <form action="/contract/list" class="m-3">
                 <div class="row">
-                    <input class="form-control col-9 " type="search" placeholder="Search" aria-label="Search"
+                    <input class="form-control col-9 " type="search" placeholder="Year" aria-label="Search"
                            name="search">
                     <button class="btn btn-outline-secondary col-3 " type="submit">Search</button>
                 </div>
                 <div class="alert alert-light " role="alert" th:if="${message}">
                     <strong th:text="${message}" style="color: red ;margin: 5px"></strong>
                 </div>
-                <a href="/customer/create">
-                    <button type="button" class="btn btn-secondary mt-2 ">Create New Customer</button>
-                </a>
             </form>
 
 
 
-            <!-- body-->
+            &lt;!&ndash; body&ndash;&gt;
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <thead class="thead-dark">
                     <th>
                     <th class="text-center">No</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Customer Code</th>
-                    <th class="text-center">Type Customer</th>
+                    <th class="text-center">date</th>
+                    <th class="text-center">Service</th>
+                    <th class="text-center">Attach Service</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                     <th scope="col">View</th>
                     </th>
                     </thead>
                     <tbody>
-                    <th:block th:each="customer,status:${customers}">
+                    <th:block th:each="contract,status:${contracts}">
                         <tr>
                             <td></td>
                             <td th:text="${status.count}"></td>
-                            <td th:text="${customer.nameCustomer}"></td>
-                            <td th:text="${customer.customerCode}"></td>
-                            <td th:text="${customer.customerType.typeNameCustomer}"></td>
+                            <td th:text="${contract.customer.nameCustomer}"></td>
+                            <td th:text="${contract.service.nameService}"></td>
+                            <td th:text="${contract.contractDetails.}"></td>
                             <td><a th:href="@{/customer/edit/__${customer.idCustomer}__ }">
                                 <button type="button" class="btn btn-secondary">Edit</button>
                             </a></td>
@@ -95,10 +93,10 @@
             </div>
 
 
-            <!-- body-->
+            &lt;!&ndash; body&ndash;&gt;
         </div>
     </div>
-<!--model-->
+&lt;!&ndash;model&ndash;&gt;
     <form action="/customer/delete" method="post">
         <div class="modal" id="exampleModal" tabindex="-1">
             <div class="modal-dialog">
@@ -131,9 +129,10 @@
 </script>
 
 
-<!--Script-->
+&lt;!&ndash;Script&ndash;&gt;
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.js"></script>
 </body>
 </html>
+-->

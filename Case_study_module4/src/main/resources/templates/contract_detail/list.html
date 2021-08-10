@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet " type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet " type="text/css" href="/css/style.css">
     <title>List Customer</title>
 </head>
 <body>
@@ -19,18 +19,15 @@
         </div>
         <div class="col-8 bg-light">
             <!--search-->
-            <form action="/customer" class="m-3">
+            <form action="/contractDetail/list" class="m-3">
                 <div class="row">
-                    <input class="form-control col-9 " type="search" placeholder="Search" aria-label="Search"
+                    <input class="form-control col-9 " type="search" placeholder="name Attach" aria-label="Search"
                            name="search">
                     <button class="btn btn-outline-secondary col-3 " type="submit">Search</button>
                 </div>
                 <div class="alert alert-light " role="alert" th:if="${message}">
                     <strong th:text="${message}" style="color: red ;margin: 5px"></strong>
                 </div>
-                <a href="/customer/create">
-                    <button type="button" class="btn btn-secondary mt-2 ">Create New Customer</button>
-                </a>
             </form>
 
 
@@ -41,33 +38,33 @@
                     <thead class="thead-dark">
                     <th>
                     <th class="text-center">No</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Customer Code</th>
-                    <th class="text-center">Type Customer</th>
+                    <th class="text-center">Customer</th>
+                    <th class="text-center">Service</th>
+                    <th class="text-center">Attach Service</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                     <th scope="col">View</th>
                     </th>
                     </thead>
                     <tbody>
-                    <th:block th:each="customer,status:${customers}">
+                    <th:block th:each="contractDetail,status:${contractDetails}">
                         <tr>
                             <td></td>
                             <td th:text="${status.count}"></td>
-                            <td th:text="${customer.nameCustomer}"></td>
-                            <td th:text="${customer.customerCode}"></td>
-                            <td th:text="${customer.customerType.typeNameCustomer}"></td>
-                            <td><a th:href="@{/customer/edit/__${customer.idCustomer}__ }">
+                            <td th:text="${contractDetail.contract.customer.nameCustomer}"></td>
+                            <td th:text="${contractDetail.contract.service.nameService}"></td>
+                            <td th:text="${contractDetail.attachService.nameAttachService}"></td>
+                            <td><a th:href="@{/contractDetail/edit/__${contractDetail.id}__ }">
                                 <button type="button" class="btn btn-secondary">Edit</button>
                             </a></td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#exampleModal"
-                                        th:onclick="|deleteCustomer(${customer.idCustomer})|">
+                                        th:onclick="|deleteContractDetail(${contractDetail.id})|">
                                     Delete
                                 </button>
                             </td>
-                            <td><a th:href="@{/customer/view/__${customer.idCustomer}__ }">
+                            <td><a th:href="@{/contractDetail/view/__${contractDetail.id}__ }">
                                 <button type="button" class="btn btn-warning">View</button>
                             </a></td>
                         </tr>
@@ -77,18 +74,18 @@
 
                 <div>
                     <a class="btn btn-outline-secondary"
-                       th:href="@{/customer(page=${customers.number - 1},search=${search})}"
-                       th:if="${customers.hasPrevious()}"> <span style="font-weight: bold"> < </span>
+                       th:href="@{/contractDetail/list(page=${contractDetails.number - 1},search=${search})}"
+                       th:if="${contractDetails.hasPrevious()}"> <span style="font-weight: bold"> < </span>
                     </a>
-                    <span th:each="p : ${#numbers.sequence(0,customers.totalPages -1)}"
-                          th:if="${customers.hasContent()}">
+                    <span th:each="p : ${#numbers.sequence(0,contractDetails.totalPages -1)}"
+                          th:if="${contractDetails.hasContent()}">
                     <a class="btn btn-outline-secondary"
-                       th:href="@{/customer(page=${p},search=${search})}" th:text="${p +1}"
-                       th:if="${(p >(customers.number)-1)&&(p <(customers.number+2))}"></a>
+                       th:href="@{/contractDetail/list(page=${p},search=${search})}" th:text="${p +1}"
+                       th:if="${(p >(contractDetails.number)-1)&&(p <(contractDetails.number+2))}"></a>
                     </span>
                     <a class="btn btn-outline-secondary"
-                       th:href="@{/customer(page=${customers.number + 1},search=${search})}"
-                       th:if="${customers.hasNext()}">
+                       th:href="@{/contractDetail/list(page=${contractDetails.number + 1},search=${search})}"
+                       th:if="${contractDetails.hasNext()}">
                         <span style="font-weight: bold"> > </span>
                     </a>
                 </div>
@@ -99,12 +96,12 @@
         </div>
     </div>
 <!--model-->
-    <form action="/customer/delete" method="post">
+    <form action="/contractDetail/delete" method="post">
         <div class="modal" id="exampleModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Delete</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -125,15 +122,15 @@
 
 <div th:insert="~{/home/home::fooder}"></div>
 <script>
-    function deleteCustomer(id) {
+    function deleteContractDetail(id) {
         document.getElementById('id').value = id;
     }
 </script>
 
 
 <!--Script-->
-<script src="js/jquery-3.6.0.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 </body>
 </html>

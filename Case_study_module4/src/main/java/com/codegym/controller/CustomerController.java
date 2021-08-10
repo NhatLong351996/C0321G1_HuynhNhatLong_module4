@@ -34,17 +34,17 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ModelAndView getFormCreateCustomer(@PageableDefault(value = 3) Pageable pageable,
+    public ModelAndView getFormListCustomer(@PageableDefault(value = 5) Pageable pageable,
                                               @RequestParam Optional<String> search) {
         ModelAndView modelAndView = new ModelAndView("customer/list");
         Page<Customer> customers;
-        if (search.isPresent()){
-            customers = customerService.findByNameCustomerContaining(search.get(),pageable);
-        }else {
-           customers = customerService.findAll(pageable);
+        if (search.isPresent()) {
+            customers = customerService.findByNameCustomerContaining(search.get(), pageable);
+        } else {
+            customers = customerService.findAll(pageable);
         }
-        modelAndView.addObject("customers",customers);
-        modelAndView.addObject("search",search.orElse(null));
+        modelAndView.addObject("customers", customers);
+        modelAndView.addObject("search", search.orElse(null));
         return modelAndView;
     }
 
@@ -94,13 +94,25 @@ public class CustomerController {
         }
         return modelAndView;
     }
+
     @PostMapping("/delete")
     public ModelAndView delete(@RequestParam("id") Long id,
-                               RedirectAttributes redirectAttributes){
+                               RedirectAttributes redirectAttributes) {
         Customer customer = customerService.findById(id);
         customerService.delete(customer);
-        redirectAttributes.addFlashAttribute("message",customer.getNameCustomer()+"delete success!");
+        redirectAttributes.addFlashAttribute("message", customer.getNameCustomer() + "delete success!");
         return new ModelAndView("redirect:/customer");
+    }
+
+    @GetMapping("/view/{id}")
+    public ModelAndView getView(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("customer/view");
+        Customer customer = customerService.findById(id);
+        modelAndView.addObject("customer", customer);
+        modelAndView.addObject("message", "INFORMATION OF " +
+                customer.getNameCustomer());
+        return modelAndView;
+
     }
 
 
