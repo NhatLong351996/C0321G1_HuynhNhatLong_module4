@@ -1,6 +1,7 @@
 package com.codegym.model.service.contract_detail_service;
 
 import com.codegym.model.entity.ContractDetail;
+import com.codegym.dto.IContractDetailDto;
 import com.codegym.model.repository.contract_detail_repository.IContractDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,27 @@ public class ContractDetailService implements IContractDetailService {
     }
 
     @Override
-    public Page<ContractDetail> findByAttachService_NameAttachService(String name, Pageable pageable) {
-        return contractDetailRepository.findByAttachService_NameAttachService(name,pageable);
+    public Page<ContractDetail> findAllByAttachService_NameAttachService(String name, Pageable pageable) {
+        return contractDetailRepository.findAllByAttachService_NameAttachService(name,pageable);
+    }
+
+    @Override
+    public Page<IContractDetailDto> listFindByNameAttach(Pageable pageable, String name) {
+        return contractDetailRepository.listFindByNameAttach(pageable,name);
+    }
+
+    @Override
+    public Page<IContractDetailDto> listFindAll(Pageable pageable) {
+        return contractDetailRepository.listFindAll(pageable);
+    }
+
+    @Override
+    public ContractDetail findById(Long id) {
+        return contractDetailRepository.findById(id).get();
+    }
+
+    @Override
+    public void delete(ContractDetail contractDetail) {
+        contractDetailRepository.delete(contractDetail);
     }
 }

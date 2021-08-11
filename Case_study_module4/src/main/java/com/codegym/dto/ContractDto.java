@@ -31,8 +31,6 @@ public class ContractDto {
     @Min(value = 0,message = "You have not enter the deposit!")
     @NotNull(message = "Not be empty!")
     private Double deposit;
-    @Min(value = 0,message = "You have not enter the totalMoney!")
-    @NotNull(message = "Not be empty!")
     private Double totalMoney;
     private Employee employee;
     private Customer customer;

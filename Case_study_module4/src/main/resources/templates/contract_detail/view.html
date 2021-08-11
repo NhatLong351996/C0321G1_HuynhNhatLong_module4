@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet " type="text/css" href="/css/style.css">
+    <title>View Customer</title>
+</head>
+<body>
+<div th:insert="~{/home/home::header}"></div>
+<div class=" container">
+    <div class="row">
+        <!--<div th:insert="~{/home/home::leftbar}"></div>-->
+        <div class="col-4" style="background-color: #494f54" >
+            <div th:replace="~{/home/home::leftbar}"></div>
+        </div>
+        <div class="col-8 bg-light">
+
+            <a class="btn btn-outline-secondary" href="/contractDetail/list" role="button">List contractDetail</a>
+
+            <div class="alert alert-light text-center " role="alert" th:if="${message}" >
+                <strong th:text="${message}" style="color: red" ></strong>
+            </div>
+
+            <!-- body-->
+                <div class="form-group">
+                    <label  class="text-uppercase">Name Customer: </label>
+                    <p class="form-control onl" th:text="${contractDetail.contract.customer.nameCustomer}">
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase" >Service: </label>
+                    <p class="form-control" th:text="${contractDetail.contract.service.nameService}">
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Type Customer: </label>
+                    <p class="form-control" th:text="${contractDetail.attachService.nameAttachService}">
+                </div>
+            <a class="btn btn-light" href="/contractDetail/list" role="button">Back</a>
+            <!-- body-->
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!--Script-->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.js"></script>
+</body>
+</html>

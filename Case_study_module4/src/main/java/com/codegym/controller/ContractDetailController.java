@@ -1,10 +1,11 @@
 package com.codegym.controller;
 
 import com.codegym.dto.ContractDetailDto;
-import com.codegym.dto.ContractDto;
 import com.codegym.model.entity.AttachService;
 import com.codegym.model.entity.Contract;
 import com.codegym.model.entity.ContractDetail;
+import com.codegym.dto.IContractDetailDto;
+import com.codegym.model.entity.Customer;
 import com.codegym.model.service.contract_detail_service.IAttachService;
 import com.codegym.model.service.contract_detail_service.IContractDetailService;
 import com.codegym.model.service.contract_service.IContractService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,19 +33,23 @@ public class ContractDetailController {
     private IContractService contractService;
     @Autowired
     private IAttachService attachService;
+
     @ModelAttribute("listContract")
-    public List<Contract> getListContract(){
+    public List<Contract> getListContract() {
         return contractService.findAll();
     }
+
     @ModelAttribute("listAttachService")
-    public List<AttachService> getListAttachService(){
+    public List<AttachService> getListAttachService() {
         return attachService.findAll();
     }
+
     @GetMapping
-    public ModelAndView getFormCreate(){
+    public ModelAndView getFormCreate() {
         return new ModelAndView("/contract_detail/create",
-                "contractDetailDto",new ContractDetailDto());
+                "contractDetailDto", new ContractDetailDto());
     }
+
     @PostMapping
     public ModelAndView create(@Valid @ModelAttribute ContractDetailDto contractDetailDto,
                                BindingResult bindingResult) {
@@ -52,7 +58,7 @@ public class ContractDetailController {
             modelAndView.addObject("contractDetailDto", contractDetailDto);
         } else {
             ContractDetail contractDetail = new ContractDetail();
-            BeanUtils.copyProperties(contractDetailDto,contractDetail);
+            BeanUtils.copyProperties(contractDetailDto, contractDetail);
             contractDetailService.save(contractDetail);
             modelAndView.addObject("contractDetailDto", new ContractDetailDto());
             modelAndView.addObject("message",
@@ -65,14 +71,55 @@ public class ContractDetailController {
     public ModelAndView getFormListContract(@PageableDefault(value = 5) Pageable pageable,
                                             @RequestParam Optional<String> search) {
         ModelAndView modelAndView = new ModelAndView("contract_detail/list");
-        Page<ContractDetail> contractDetails;
-        if (search.isPresent()) {
-            contractDetails = contractDetailService.findByAttachService_NameAttachService(search.get(), pageable);
+        Page<IContractDetailDto> contractDetails;
+        if (!search.isPresent()) {
+            contractDetails = contractDetailService.listFindAll(pageable);
         } else {
-            contractDetails = contractDetailService.findAll(pageable);
+            contractDetails = contractDetailService.listFindByNameAttach(pageable, search.get());
         }
         modelAndView.addObject("contractDetails", contractDetails);
         modelAndView.addObject("search", search.orElse(null));
+        return modelAndView;
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView getFormEdit(@PathVariable Long id) {
+        ContractDetail contractDetail = contractDetailService.findById(id);
+        ContractDetailDto contractDetailDto = new ContractDetailDto();
+        BeanUtils.copyProperties(contractDetail,contractDetailDto);
+        return new ModelAndView("contract_detail/edit","contractDetailDto",contractDetailDto);
+    }
+    @PostMapping("/edit")
+    public ModelAndView edit(@Valid @ModelAttribute ContractDetailDto contractDetailDto,
+                             BindingResult bindingResult){
+        ModelAndView modelAndView = new ModelAndView("contract_detail/edit");
+        if (bindingResult.hasFieldErrors()){
+            modelAndView.addObject("contractDetailDto",contractDetailDto);
+        }else {
+            ContractDetail contractDetail = new ContractDetail();
+            BeanUtils.copyProperties(contractDetailDto,contractDetail);
+            contractDetailService.save(contractDetail);
+            modelAndView.addObject("contractDetailDto",contractDetailDto);
+            modelAndView.addObject("message","Update Success!");
+        }
+        return modelAndView;
+    }
+
+    @PostMapping("/delete")
+    public ModelAndView delete(@RequestParam("id") Long id,
+                               RedirectAttributes redirectAttributes) {
+        ContractDetail contractDetail = contractDetailService.findById(id);
+        contractDetailService.delete(contractDetail);
+        redirectAttributes.addFlashAttribute("message","delete success!");
+        return new ModelAndView("redirect:/contractDetail/list");
+    }
+
+    @GetMapping("/view/{id}")
+    public ModelAndView getView(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("contract_detail/view");
+        ContractDetail contractDetail = contractDetailService.findById(id);
+        modelAndView.addObject("contractDetail", contractDetail);
+        modelAndView.addObject("message", "INFORMATION");
         return modelAndView;
     }
 

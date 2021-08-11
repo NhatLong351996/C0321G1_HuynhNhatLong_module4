@@ -51,20 +51,20 @@
                         <tr>
                             <td></td>
                             <td th:text="${status.count}"></td>
-                            <td th:text="${contractDetail.contract.customer.nameCustomer}"></td>
-                            <td th:text="${contractDetail.contract.service.nameService}"></td>
-                            <td th:text="${contractDetail.attachService.nameAttachService}"></td>
-                            <td><a th:href="@{/contractDetail/edit/__${contractDetail.id}__ }">
+                            <td th:text="${contractDetail.getNameCustomer()}"></td>
+                            <td th:text="${contractDetail.getNameService()}"></td>
+                            <td th:text="${contractDetail.getNameAttachService()}"></td>
+                            <td><a th:href="@{/contractDetail/edit/__${contractDetail.idContractDetail}__ }">
                                 <button type="button" class="btn btn-secondary">Edit</button>
                             </a></td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#exampleModal"
-                                        th:onclick="|deleteContractDetail(${contractDetail.id})|">
+                                        th:onclick="|deleteContractDetail(${contractDetail.idContractDetail})|">
                                     Delete
                                 </button>
                             </td>
-                            <td><a th:href="@{/contractDetail/view/__${contractDetail.id}__ }">
+                            <td><a th:href="@{/contractDetail/view/__${contractDetail.idContractDetail}__ }">
                                 <button type="button" class="btn btn-warning">View</button>
                             </a></td>
                         </tr>
@@ -126,7 +126,6 @@
         document.getElementById('id').value = id;
     }
 </script>
-
 
 <!--Script-->
 <script src="/js/jquery-3.6.0.min.js"></script>
