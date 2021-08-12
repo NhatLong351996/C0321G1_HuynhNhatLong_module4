@@ -41,7 +41,11 @@
                     <th class="text-center">Customer</th>
                     <th class="text-center">Service</th>
                     <th class="text-center">Attach Service</th>
-                    <th scope="col">Edit</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Cost Service</th>
+                    <th class="text-center">Cost Attach Service</th>
+                    <th class="text-center">Total Money</th>
+                    <th scope="col">Add New Attach Service</th>
                     <th scope="col">Delete</th>
                     <th scope="col">View</th>
                     </th>
@@ -54,8 +58,12 @@
                             <td th:text="${contractDetail.getNameCustomer()}"></td>
                             <td th:text="${contractDetail.getNameService()}"></td>
                             <td th:text="${contractDetail.getNameAttachService()}"></td>
+                            <td th:text="${contractDetail.getQuantity()}"></td>
+                            <td th:text="${contractDetail.getCosService()}"></td>
+                            <td th:text="${contractDetail.getCostAttach()}"></td>
+                            <td th:text="${contractDetail.getCostAttach()+contractDetail.getCosService()}"></td>
                             <td><a th:href="@{/contractDetail/edit/__${contractDetail.idContractDetail}__ }">
-                                <button type="button" class="btn btn-secondary">Edit</button>
+                                <button type="button" class="btn btn-secondary">Add New Attach Service</button>
                             </a></td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
@@ -120,7 +128,7 @@
     </form>
 </div>
 
-<div th:insert="~{/home/home::fooder}"></div>
+
 <script>
     function deleteContractDetail(id) {
         document.getElementById('id').value = id;

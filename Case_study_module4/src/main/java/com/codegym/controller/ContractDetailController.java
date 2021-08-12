@@ -66,6 +66,40 @@ public class ContractDetailController {
         }
         return modelAndView;
     }
+    /*@PostMapping("/create")
+    public String save(@Valid @ModelAttribute ContractDetailDto contractDetailDto,
+                       BindingResult bindingResult, Model model,
+                       RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasFieldErrors()) {
+            model.addAttribute("contractDetailDto", contractDetailDto);
+            return "/contractDetail/create";
+        } else {
+            Contract contract = contractService.findByContractId(contractDetailDto.getContract()
+                    .getContractId());
+            Double newTotalMoney = contract.getContractTotalMoney() +
+                    contractDetailDto.getQuantity()*contractDetailDto.getAttachService()
+                            .getAttachServiceCost();
+            contract.setContractTotalMoney(newTotalMoney);
+            String listAttachService = "";
+            if(contract.getListAttachService().isEmpty()){
+                listAttachService = contractDetailDto.getAttachService().
+                        getAttachServiceName() +"-Quantity: " +contractDetailDto.getQuantity();
+            }
+            else {
+                listAttachService = contract.getListAttachService()  +" , "
+                        + contractDetailDto.getAttachService().getAttachServiceName()
+                        +"-Quantity: " +contractDetailDto.getQuantity();
+            }
+            contract.setListAttachService(listAttachService);
+            contractDetailDto.setFlag(1);
+            ContractDetail contractDetail = new ContractDetail();
+            BeanUtils.copyProperties(contractDetailDto,contractDetail);
+            contractDetailService.save(contractDetail);
+            redirectAttributes.addFlashAttribute("message",
+                    "New Contract Detail created successfully");
+            return "redirect:/contractDetail";
+        }
+    }*/
 
     @GetMapping("/list")
     public ModelAndView getFormListContract(@PageableDefault(value = 5) Pageable pageable,

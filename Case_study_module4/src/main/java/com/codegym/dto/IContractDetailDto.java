@@ -6,4 +6,7 @@ public interface IContractDetailDto {
     String getNameAttachService();
     Long getIdContract();
     Long getIdContractDetail();
+    Integer getQuantity();
+    Integer getCosService();
+    Integer getCostAttach();
 }

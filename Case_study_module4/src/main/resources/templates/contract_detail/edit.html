@@ -30,17 +30,24 @@
                 <input th:type="hidden" name="id" th:field="*{id}">
                 <div class="form-group">
                     <label class="text-uppercase">Contract</label>
-                    <select th:field="*{contract}" class="form-control">
+                    <input type="text" class="form-control text-primary" th:field="*{contract}"
+                           th:text="${contractDetailDto.contract.customer.nameCustomer+
+                        ', '+contractDetailDto.contract.customer.phoneNumberCustomer}" readonly>
+                </div>
+               <!-- <div class="form-group">
+                    <label class="text-uppercase">Contract</label>
+                    <select th:field="*{contract}" class="form-control" >
                         <option th:each="type : ${listContract} " th:text="${type.customer.nameCustomer+
                         ', '+type.customer.phoneNumberCustomer}"
                                 th:value="${type.idContract}">
                         </option>
                     </select>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label class="text-uppercase">Attach Service</label>
                     <select th:field="*{attachService}" class="form-control">
-                        <option th:each="type: ${listAttachService} " th:text="${type.nameAttachService}"
+                        <option th:each="type: ${listAttachService} " th:text="${type.nameAttachService +', '+
+                        type.costAttachService+' VND'}"
                                 th:value="${type.id}">
                         </option>
                     </select>

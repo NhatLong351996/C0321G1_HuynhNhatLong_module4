@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label class="text-uppercase">Total Money</label>
-                    <input id="costService" type="number" class="form-control" th:field="*{totalMoney}" readonly th:text=cost>
+                    <input id="costService" type="number" class="form-control" th:field="*{totalMoney}" readonly>
                     <div class="form-text" th:if="${#fields.hasErrors('totalMoney')}"
                          th:errors="*{totalMoney}" style="color: red"></div>
                 </div>
@@ -68,8 +68,8 @@
                 <div class="form-group">
                     <label class="text-uppercase">Service</label>
                     <select th:field="*{service}" class="form-control" >
-                        <option th:each="type: ${listService} " th:text="${type.nameService}"
-                                th:value="${type.idService}" th:onchane="|selectMoney(${type.costService})|">
+                        <option th:each="type: ${listService} " th:text="${type.nameService+', '+type.costService}"
+                                th:value="${type.idService}">
                         </option>
                     </select>
                 </div>
@@ -85,10 +85,5 @@
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.js"></script>
-<script>
-    function selectMoney(cost) {
-       $("#costService").html("<input>")
-    }
-</script>
 </body>
 </html>
